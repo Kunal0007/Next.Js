@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Script from 'next/script'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
@@ -13,14 +12,6 @@ export default function Home() {
       </Head>
 
       {/* <Script src='' ></Script> */}
-
-      <nav>
-        <ul className={styles.navbar}>
-          <li className={styles.navItem}>Home</li>
-          <li className={styles.navItem}>Blogs</li>
-          <li className={styles.navItem}>About</li>
-        </ul>
-      </nav>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
