@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
@@ -25,10 +26,12 @@ export default function Home() {
         <h3>Popular Blogs</h3>
 
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Blog 1 &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+        <Link href='/blogpost/How-to-Integrate-Java-with-SQL'>
+        <a className={styles.card}>
+          <h2>Blog 1 &rarr;</h2>
+          <p>Find in-depth information about Next.js features and API.</p>
+        </a>
+      </Link>
 
           <a href="https://nextjs.org/learn" className={styles.card}>
             <h2>Blog 2 &rarr;</h2>
@@ -55,18 +58,6 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
   )
 }
