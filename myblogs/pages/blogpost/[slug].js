@@ -3,20 +3,23 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import styles from '../../styles/BlogPost.module.css'
 
-const Slug = () => {
+const Slug = (props) => {
 
-  const [blog, setblog] = useState({});
-  const router = useRouter();
+  const [blog, setblog] = useState(props.blog);
 
-  useEffect(() => {
-    if (!router.isReady) return;
-    const { slug } = router.query;
-    fetch(`http://localhost:3000/api/getblog?slug=${slug}`).then(data => {
-      return data.json();
-    }).then(data => {
-      setblog(data);
-    })
-  }, [router.isReady])
+
+
+  // const router = useRouter();
+
+  // useEffect(() => {
+  //   if (!router.isReady) return;
+  //   const { slug } = router.query;
+  //   fetch(`http://localhost:3000/api/getblog?slug=${slug}`).then(data => {
+  //     return data.json();
+  //   }).then(data => {
+  //     setblog(data);
+  //   })
+  // }, [router.isReady])
 
   return (
     <div className={styles.main}>
@@ -33,6 +36,18 @@ const Slug = () => {
       </div>
     </div>
   )
+}
+
+// Server Side Rendering
+
+export async function getServerSideProps(context) {
+  let slug = context.query.slug;
+  let data = await fetch(`http://localhost:3000/api/getblog?slug=${slug}`)
+  let blog = await data.json();
+
+  return {
+    props: {blog}, // will be passed to the page component as props
+  }
 }
 
 export default Slug
