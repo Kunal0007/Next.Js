@@ -3,29 +3,32 @@ import Head from 'next/head'
 import Link from 'next/link'
 import styles from '../styles/Blogs.module.css'
 
-const Blogs = () => {
+const Blogs = (props) => {
 
-  const [blogs, setBlogs] = useState([]);
-  useEffect(() => {
-    fetch('http://localhost:3000/api/blogs').then((data) => {
-      return data.json();
-    }).then((data) => {
-      // console.log(data);
-      setBlogs(data)
-    })
-  }, [])
+  const [blogs, setBlogs] = useState(props.myblogs);
+
+  // fetch Method
+
+  // useEffect(() => {
+  //   fetch('http://localhost:3000/api/blogs').then((data) => {
+  //     return data.json();
+  //   }).then((data) => {
+  //     // console.log(data);
+  //     setBlogs(data)
+  //   })
+  // }, [])
 
 
   return (
     <div className={styles.grid}>
       {blogs.map(({ title, author, content }) => {
         return (
-            <Link href={`/blogpost/${title}`} key={title}>
-              <a className={styles.card}>
-                <h2>{title} &rarr;</h2>
-                <p>{content.substr(0, 50)}</p>
-              </a>
-            </Link>
+          <Link href={`/blogpost/${title}`} key={title}>
+            <a className={styles.card}>
+              <h2>{title} &rarr;</h2>
+              <p>{content.substr(0, 50)}</p>
+            </a>
+          </Link>
         );
       })}
       {/* <Link href='/blogpost/How to learn Next.js'>
@@ -60,6 +63,17 @@ const Blogs = () => {
       </a>*/}
     </div>
   )
+}
+
+// Server Side Rendering
+
+export async function getServerSideProps(context) {
+
+  let data = await fetch('http://localhost:3000/api/blogs')
+  let myblogs = await data.json();
+  return {
+    props: {myblogs}, // will be passed to the page component as props
+  }
 }
 
 export default Blogs
