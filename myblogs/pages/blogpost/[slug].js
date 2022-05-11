@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import styles from '../../styles/BlogPost.module.css'
+import * as fs from 'fs'
 
 const Slug = (props) => {
 
@@ -40,13 +41,35 @@ const Slug = (props) => {
 
 // Server Side Rendering
 
-export async function getServerSideProps(context) {
-  let slug = context.query.slug;
-  let data = await fetch(`http://localhost:3000/api/getblog?slug=${slug}`)
-  let blog = await data.json();
+// export async function getServerSideProps(context) {
+//   let slug = context.query.slug;
+//   let data = await fetch(`http://localhost:3000/api/getblog?slug=${slug}`)
+//   let blog = await data.json();
+
+//   return {
+//     props: {blog}, // will be passed to the page component as props
+//   }
+// }
+
+//Static Site Generation
+
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: { slug: 'How to Integrate Java with SQL' } },
+      { params: { slug: 'How to learn Cloud Computing' } },
+      { params: { slug: 'How to learn Next.js' } },
+    ],
+    fallback: true // false or 'blocking'
+  };
+}
+
+export async function getStaticProps(context) {
+  let slug = context.params.slug;
+  let blog = await fs.promises.readFile(`blogdata/${slug}.json`, 'utf-8')
 
   return {
-    props: {blog}, // will be passed to the page component as props
+    props: {blog: JSON.parse(blog)}, // will be passed to the page component as props
   }
 }
 
