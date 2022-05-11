@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import * as fs from 'fs'
 import styles from '../styles/Blogs.module.css'
 
 const Blogs = (props) => {
@@ -67,10 +68,26 @@ const Blogs = (props) => {
 
 // Server Side Rendering
 
-export async function getServerSideProps(context) {
+// export async function getServerSideProps(context) {
+//   let data = await fetch('http://localhost:3000/api/blogs')
+//   let myblogs = await data.json();
+//   return {
+//     props: {myblogs}, // will be passed to the page component as props
+//   }
+// }
 
-  let data = await fetch('http://localhost:3000/api/blogs')
-  let myblogs = await data.json();
+//Static Site Generation
+
+export async function getStaticProps(context) {
+
+  let data = await fs.promises.readdir('blogdata', 'utf-8')
+  let file;
+  let myblogs = [];
+  for (let index = 0; index < data.length; index++) {
+      const item = data[index];
+      file = await fs.promises.readFile(('blogdata/' + item), 'utf-8');
+      myblogs.push(JSON.parse(file));
+  }
   return {
     props: {myblogs}, // will be passed to the page component as props
   }
