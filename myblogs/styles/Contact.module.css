@@ -1,0 +1,22 @@
+.main {
+    min-height: 100vh;
+    padding: 2rem 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 1rem;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.inputs label {
+    margin: 1rem;
+}
