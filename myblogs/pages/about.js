@@ -1,8 +1,11 @@
 import React from 'react'
+import styles from '../styles/About.module.css'
 
 const About = () => {
   return (
-    <div>This is About page</div>
+    <div className={styles.main}>
+        <h1>About</h1>
+    </div>
   )
 }
 
