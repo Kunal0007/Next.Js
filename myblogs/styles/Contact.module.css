@@ -49,3 +49,9 @@
     background-color: black;
     border-radius: 2rem;
 }
+
+@media only screen and (max-width: 600px) {
+    .main {
+        margin: 0 2rem;
+    }
+  }
