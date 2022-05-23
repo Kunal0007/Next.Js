@@ -109,6 +109,7 @@
 }
 
 .navbar {
+  padding: 0;
   display: flex;
   margin-top: 2rem;
   list-style: none;
